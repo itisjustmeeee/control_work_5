@@ -26,6 +26,8 @@
     const message = document.getElementById('message');
     const attemptsP = document.getElementById('attempts');
 
+    let attempts = 0;
+
     startBtn.onclick = () => {
       fetch('/api/start', { method: 'POST' })
         .then(r => r.json())
@@ -33,21 +35,40 @@
           message.textContent = data.message;
           gameDiv.style.display = 'block';
           startBtn.disabled = true;
-        });
+          guessInput.value = '';
+          attempts = 0;
+          attemptsP.textContent = '';
+        })
+        .catch(err => console.error('Ошибка старта:', err));
     };
 
     submitBtn.onclick = () => {
-      const guess = guessInput.value;
+      let guess = guessInput.value.trim();
+      if (!guess || isNaN(guess) || guess < 1 || guess > 100) {
+        message.textContent = "Введите число от 1 до 100";
+        return;
+      }
+
+      guess = parseInt(guess);
+
       fetch(`/api/guess?guess=${guess}`, { method: 'POST' })
         .then(r => r.json())
         .then(data => {
+          message.textContent = data.message;
+
           if (data.result === "win") {
-            message.textContent = data.message;
+            attemptsP.textContent = `Угадано за ${attempts + 1} попыток`;
             startBtn.disabled = false;
             gameDiv.style.display = 'none';
+            guessInput.value = '';
           } else {
-            message.textContent = data.message;
+            attempts++;
+            attemptsP.textContent = `Попыток: ${attempts}`;
           }
+        })
+        .catch(err => {
+          message.textContent = "Ошибка сервера";
+          console.error(err);
         });
     };
   </script>

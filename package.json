@@ -7,6 +7,18 @@
     "dev": "nodemon app.js"
   },
   "dependencies": {
-    "express": "^4.18.2"
-  }
+    "express": "^4.22.1"
+  },
+  "description": "Контольная работа 5\r Гузаирова Ольга Ринатовна ЭФБО-05-25\r Вариант 30: мини-игра \"Угадай число\"",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itisjustmeeee/control_work_5.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/itisjustmeeee/control_work_5/issues"
+  },
+  "homepage": "https://github.com/itisjustmeeee/control_work_5#readme"
 }

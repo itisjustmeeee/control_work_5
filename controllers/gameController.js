@@ -22,15 +22,15 @@ const guessNumber = (req, res) => {
   attempts++;
 
   if (guess === currentNumber) {
-    gameStarted = false;
-    res.json({
-      result: "win",
-      message: `Поздравляю! Вы угадали число \( {currentNumber} за \){attempts} попыток!`
-    });
+  gameStarted = false;
+  res.json({
+    result: "win",
+    message: `Поздравляю! Вы угадали число ${currentNumber} за ${attempts} попыток!`
+  });
   } else if (guess < currentNumber) {
     res.json({ result: "low", message: "Мало. Загаданное число больше введенного!" });
   } else {
-    res.json({ result: "high", message: "Много. Загаданное число меньше веденного!" });
+    res.json({ result: "high", message: "Много. Загаданное число меньше введенного!" });
   }
 };
 

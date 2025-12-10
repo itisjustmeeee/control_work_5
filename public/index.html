@@ -41,7 +41,7 @@
       fetch(`/api/guess?guess=${guess}`, { method: 'POST' })
         .then(r => r.json())
         .then(data => {
-          if (data.result === 'win') {
+          if (data.result === "win") {
             message.textContent = data.message;
             startBtn.disabled = false;
             gameDiv.style.display = 'none';

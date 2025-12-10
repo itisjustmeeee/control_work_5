@@ -38,7 +38,7 @@
 
     submitBtn.onclick = () => {
       const guess = guessInput.value;
-      fetch(/api/guess?guess=${guess}, { method: 'POST' })
+      fetch('/api/guess?guess=${guess}', { method: 'POST' })
         .then(r => r.json())
         .then(data => {
           if (data.result === 'win') {

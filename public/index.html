@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Угадай число</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Угадай число от 1 до 100</h1>
+    <button id="start">Начать игру</button>
+    <div id="game" style="display:none;">
+      <input type="number" id="guess" min="1" max="100" placeholder="Ваше число">
+      <button id="submit">Угадать</button>
+      <p id="message"></p>
+      <p id="attempts"></p>
+    </div>
+  </div>
+
+  <script>
+    const startBtn = document.getElementById('start');
+    const gameDiv = document.getElementById('game');
+    const guessInput = document.getElementById('guess');
+    const submitBtn = document.getElementById('submit');
+    const message = document.getElementById('message');
+    const attemptsP = document.getElementById('attempts');
+
+    startBtn.onclick = () => {
+      fetch('/api/start', { method: 'POST' })
+        .then(r => r.json())
+        .then(data => {
+          message.textContent = data.message;
+          gameDiv.style.display = 'block';
+          startBtn.disabled = true;
+        });
+    };
+
+    submitBtn.onclick = () => {
+      const guess = guessInput.value;
+      fetch(/api/guess?guess=${guess}, { method: 'POST' })
+        .then(r => r.json())
+        .then(data => {
+          if (data.result === 'win') {
+            message.textContent = data.message;
+            startBtn.disabled = false;
+            gameDiv.style.display = 'none';
+          } else {
+            message.textContent = data.message;
+          }
+        });
+    };
+  </script>
+</body>
+</html>
